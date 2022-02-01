@@ -1,38 +1,89 @@
-.App {
+body {
+  display: flex;
+  /* flex-wrap: wrap; */
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  padding-top: 100px;
+}
+
+.left,
+.right {
+  display: flex;
+  flex-direction: column;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+video {
+  flex: 100%;
+  max-width: 600px;
+  min-height: 400px;
+  height: auto;
+  display: block;
+  background-color: black;
+  margin-bottom: 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.row {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  text-align: center;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+.results {
+  width: 100%;
+}
+
+button {
+  margin: 0 0.5rem;
+}
+
+.preview-wrapper {
+  display: none;
+}
+
+.recorded-videos__list {
+  /* display: none; */
+  display: flex;
+  flex-direction: column;
+}
+/* .recorded-videos__list.active {
+  display: flex;
+  flex-direction: column;
+} */
+.uploaded-videos {
+  display: flex;
+  flex-direction: column;
+}
+
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td,
+#customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#customers tr:hover {
+  background-color: #ddd;
+}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04aa6d;
   color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }

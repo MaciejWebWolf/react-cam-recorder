@@ -1,5 +1,6 @@
 {
   "name": "rec",
+  "homepage": "http://localhost/react-rec/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
