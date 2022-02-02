@@ -66,6 +66,13 @@ button {
   width: 100%;
 }
 
+.file-uploader,
+.recorded-videos,
+.uploaded-videos {
+  border: 1px solid black;
+  margin: 10px;
+}
+
 #customers td,
 #customers th {
   border: 1px solid #ddd;

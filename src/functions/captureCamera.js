@@ -11,12 +11,9 @@ export async function captureCamera(
     },
   }
 ) {
-  const video = document.querySelector(".main-video");
-  const stream = await navigator.mediaDevices.getUserMedia(mediaConstraints);
-
-  video.src = null;
-  video.srcObject = stream;
-  video.muted = true;
+  const stream = await navigator.mediaDevices
+    .getUserMedia(mediaConstraints)
+    .catch((error) => console.log(error));
 
   return stream;
 }

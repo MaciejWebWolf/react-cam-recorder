@@ -14,12 +14,14 @@ const FileUploader = ({ setRandomNum }) => {
   }
 
   return (
-    <form method="post" encType="multipart/form-data" onSubmit={handleSubmit}>
-      Select file to upload:
-      <input type="file" onChange={(e) => setFile(e.target.files[0])} />
-      <input type="submit" value="Upload file" name="submit" />
-      <p className="results">{uploadStatus}</p>
-    </form>
+    <div className="file-uploader">
+      <h3>Upload a file</h3>
+      <form method="post" encType="multipart/form-data" onSubmit={handleSubmit}>
+        <input type="file" onChange={(e) => setFile(e.target.files[0])} />
+        <input type="submit" value="Upload file" name="submit" />
+        <p className="results">{uploadStatus}</p>
+      </form>
+    </div>
   );
 };
 

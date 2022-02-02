@@ -6,9 +6,9 @@ export async function captureScreen(
     },
   }
 ) {
-  const screenStream = await navigator.mediaDevices.getDisplayMedia(
-    mediaConstraints
-  );
+  const screenStream = await navigator.mediaDevices
+    .getDisplayMedia(mediaConstraints)
+    .catch((error) => console.log(error));
 
   return screenStream;
 }

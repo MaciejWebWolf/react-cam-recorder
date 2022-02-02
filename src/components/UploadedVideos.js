@@ -10,7 +10,7 @@ const UploadedVideos = ({ randomNum }) => {
   const [uploadStatus, setUploadStatus] = useState("");
 
   useEffect(() => {
-    console.log("useeffect");
+    // console.log("useeffect");
     getDataFromDb(setError, setIsLoaded, setResponse);
   }, [num, randomNum]);
 

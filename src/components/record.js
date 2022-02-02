@@ -1,6 +1,3 @@
-import { disablePreview } from "../functions/enableDisablePreview.js";
-import { disableButtons } from "../functions/enableDisableButtons.js";
-import { enableButtons } from "../functions/enableDisableButtons.js";
 import { captureCamera } from "../functions/captureCamera.js";
 import { captureScreen } from "../functions/captureScreen.js";
 import RecordedVideoRow from "./RecordedVideoRow";
@@ -15,33 +12,40 @@ const settings = {
 };
 
 export async function record(
-  isScreen,
+  source,
   setStream,
   recordedVideos,
   setRecordedVideos,
-  setRandomNum
+  setRandomNum,
+  setRecording,
+  setIsSmallCamera
 ) {
-  const enablePrevBtn = document.querySelector(".enable-preview");
-  const disablePrevBtn = document.querySelector(".disable-preview");
   const video = document.querySelector(".main-video");
   let stream;
-  //SCREEN AND AUDIO
-  if (isScreen) {
+  //SCREEN AND AUDIO - SOURCE
+  if (source === "screen") {
+    setRecording({ camera: false, screen: true });
     const audioStream = await captureCamera(settings);
     const screenStream = await captureScreen();
+    if (!screenStream || !audioStream)
+      return setRecording({ camera: false, screen: false });
 
     stream = new MediaStream([
       ...screenStream.getTracks(),
       ...audioStream.getTracks(),
     ]);
-  } else {
-    disablePreview();
-    disableButtons([enablePrevBtn, disablePrevBtn]);
+  }
+  //CAMERA - SOURCE
+  else if (source === "camera") {
+    setRecording({ camera: true, screen: false });
+    setIsSmallCamera(false);
     stream = await captureCamera();
   }
+
   video.src = null;
   video.srcObject = stream;
   video.muted = true;
+
   const recorder = new MediaRecorder(stream);
   let chunks = [];
   recorder.ondataavailable = (event) => {
@@ -50,14 +54,12 @@ export async function record(
     }
   };
   recorder.onstop = () => {
+    console.log("recorder onstop");
     const blob = new Blob(chunks, {
       type: "video/mp4",
     });
     chunks = [];
     const blobUrl = URL.createObjectURL(blob);
-    // console.log(blob);
-    // console.log(blobUrl);
-
     video.srcObject = null;
     video.src = blobUrl;
     video.muted = false;
@@ -71,10 +73,8 @@ export async function record(
     );
     const recordedVideosNew = [...recordedVideos, recordedVideo];
     setRecordedVideos(recordedVideosNew);
-    enableButtons([enablePrevBtn, disablePrevBtn]);
+    setRecording({ camera: false, screen: false });
   };
   recorder.start(200);
-  // setRecorder(recorder);
-  console.log(recorder);
   setStream(recorder);
 }
