@@ -68,7 +68,8 @@ button {
 
 .file-uploader,
 .recorded-videos,
-.uploaded-videos {
+.uploaded-videos,
+.video-recorder {
   border: 1px solid black;
   margin: 10px;
 }
@@ -93,4 +94,8 @@ button {
   text-align: left;
   background-color: #04aa6d;
   color: white;
+}
+
+input[type="number"] {
+  max-width: 50px;
 }

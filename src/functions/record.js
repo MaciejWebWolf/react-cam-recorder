@@ -1,6 +1,6 @@
-import { captureCamera } from "../functions/captureCamera.js";
-import { captureScreen } from "../functions/captureScreen.js";
-import RecordedVideoRow from "./RecordedVideoRow";
+import { captureCamera } from "./captureCamera.js";
+import { captureScreen } from "./captureScreen.js";
+import { recordEnded } from "./recordEnded.js";
 
 const settings = {
   audio: {
@@ -18,9 +18,11 @@ export async function record(
   setRecordedVideos,
   setRandomNum,
   setRecording,
-  setIsSmallCamera
+  setIsSmallCamera,
+  vidRef
 ) {
-  const video = document.querySelector(".main-video");
+  console.log(vidRef.current);
+  const video = vidRef.current;
   let stream;
   //SCREEN AND AUDIO - SOURCE
   if (source === "screen") {
@@ -41,7 +43,7 @@ export async function record(
     setIsSmallCamera(false);
     stream = await captureCamera();
   }
-
+  console.log(video);
   video.src = null;
   video.srcObject = stream;
   video.muted = true;
@@ -54,27 +56,16 @@ export async function record(
     }
   };
   recorder.onstop = () => {
-    console.log("recorder onstop");
-    const blob = new Blob(chunks, {
-      type: "video/mp4",
-    });
-    chunks = [];
-    const blobUrl = URL.createObjectURL(blob);
-    video.srcObject = null;
-    video.src = blobUrl;
-    video.muted = false;
-    const recordedVideo = (
-      <RecordedVideoRow
-        file={blob}
-        blobUrl={blobUrl}
-        setRandomNum={setRandomNum}
-        key={blobUrl}
-      />
+    recordEnded(
+      chunks,
+      video,
+      recordedVideos,
+      setRecordedVideos,
+      setRecording,
+      setRandomNum
     );
-    const recordedVideosNew = [...recordedVideos, recordedVideo];
-    setRecordedVideos(recordedVideosNew);
-    setRecording({ camera: false, screen: false });
   };
+
   recorder.start(200);
   setStream(recorder);
 }

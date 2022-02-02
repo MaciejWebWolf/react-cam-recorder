@@ -9,10 +9,15 @@ const UploadedVideos = ({ randomNum }) => {
   const [num, setRandomNum] = useState(randomNum);
   const [uploadStatus, setUploadStatus] = useState("");
 
+  const [checkboxValue, setCheckboxValue] = useState(false);
+  const [videosToCombine, setVideosToCombine] = useState([]);
+
   useEffect(() => {
     // console.log("useeffect");
     getDataFromDb(setError, setIsLoaded, setResponse);
   }, [num, randomNum]);
+
+  console.log(checkboxValue);
 
   if (error) {
     return <div>{error}</div>;
@@ -49,6 +54,16 @@ const UploadedVideos = ({ randomNum }) => {
               Remove
             </button>
           </td>
+          <td>
+            <input
+              type="checkbox"
+              value={checkboxValue}
+              onChange={(e) => setCheckboxValue(e.target.checked)}
+            />
+          </td>
+          <td>
+            <input type="number" min="1" />
+          </td>
         </tr>
       );
     });
@@ -62,6 +77,8 @@ const UploadedVideos = ({ randomNum }) => {
             <th>Date</th>
             <th>Size [MB]</th>
             <th>Remove</th>
+            <th>Combine</th>
+            <th>Order</th>
           </tr>
         </thead>
         <tbody>{items}</tbody>
