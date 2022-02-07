@@ -2,11 +2,13 @@ import { uploadFile } from "../functions/uploadFile.js";
 import React, { useState } from "react";
 
 const RecordedVideoRow = ({ file, blobUrl, setRandomNum }) => {
-  const fullName = blobUrl.slice(blobUrl.length - 12) + ".mp4";
+  const type = "mp4";
+  const fullName = blobUrl.slice(blobUrl.length - 12) + "." + type;
   const shortName = blobUrl.slice(blobUrl.length - 12);
   const [uploadStatus, setUploadStatus] = useState("");
 
-  const item = { file, fullName, shortName };
+  const item = { file, fullName, shortName, type };
+  // console.log(file);
 
   return (
     <div className="row">

@@ -7,9 +7,19 @@ const FileUploader = ({ setRandomNum }) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const fullName = file.name;
-    const shortName = fullName.substring(0, fullName.indexOf("."));
-    const item = { file, fullName, shortName };
+    // const fullName = file.name;
+    // const shortName = fullName.substring(0, fullName.indexOf("."));
+    const index = file.name.lastIndexOf(".");
+    let shortName = file.name.substring(0, index);
+    shortName = shortName.replace(
+      /[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi,
+      "_"
+    );
+    const type = file.name.substring(index + 1);
+    const fullName = shortName + "." + type;
+    console.log(shortName);
+    console.log(fullName);
+    const item = { file, fullName, shortName, type };
     uploadFile(item, e, setUploadStatus, setRandomNum);
   }
 

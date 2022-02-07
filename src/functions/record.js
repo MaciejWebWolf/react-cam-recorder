@@ -31,7 +31,8 @@ export async function record(
     const screenStream = await captureScreen();
     if (!screenStream || !audioStream)
       return setRecording({ camera: false, screen: false });
-
+    console.log(screenStream);
+    console.log(screenStream.getTracks());
     stream = new MediaStream([
       ...screenStream.getTracks(),
       ...audioStream.getTracks(),
@@ -43,7 +44,7 @@ export async function record(
     setIsSmallCamera(false);
     stream = await captureCamera();
   }
-  console.log(video);
+
   video.src = null;
   video.srcObject = stream;
   video.muted = true;
@@ -53,6 +54,7 @@ export async function record(
   recorder.ondataavailable = (event) => {
     if (event.data.size > 0) {
       chunks.push(event.data);
+      // console.log(recorder);
     }
   };
   recorder.onstop = () => {

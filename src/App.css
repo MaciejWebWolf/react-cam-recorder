@@ -67,11 +67,19 @@ button {
 }
 
 .file-uploader,
+.file-combiner,
 .recorded-videos,
 .uploaded-videos,
-.video-recorder {
+.video-recorder,
+.combine-videos {
   border: 1px solid black;
   margin: 10px;
+}
+
+.combine-videos__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #customers td,

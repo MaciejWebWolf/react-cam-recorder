@@ -39,7 +39,13 @@ const Recorder = ({ setRandomNum }) => {
     <div>
       <div className="video-recorder">
         <h3>Record a video</h3>
-        <video ref={vidRef} className="main-video" autoPlay muted></video>
+        <video
+          ref={vidRef}
+          className="main-video"
+          autoPlay
+          muted
+          controls
+        ></video>
 
         <Buttons
           recording={recording}
