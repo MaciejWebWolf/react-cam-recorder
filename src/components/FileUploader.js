@@ -46,9 +46,14 @@ const FileUploader = ({ setRandomNum }) => {
           value="Upload file"
           name="submit"
         />
-        <span className="file-uploader__status">
-          {loading ? <Loader /> : status}
-        </span>
+        {loading ? (
+          <Loader />
+        ) : (
+          <div
+            className="file-uploader__status"
+            dangerouslySetInnerHTML={{ __html: status.msg }}
+          ></div>
+        )}
       </form>
     </div>
   );

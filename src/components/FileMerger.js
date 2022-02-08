@@ -9,7 +9,11 @@ const FileMerger = ({ videosToCombine, uploadedVideos, setRandomNum }) => {
 
   function merge(e) {
     e.preventDefault();
-    if (name === "") return setStatus("Output file name is missing");
+    if (name === "")
+      return setStatus({
+        error: true,
+        msg: "Output file name is missing",
+      });
     const nameAlreadyExists = uploadedVideos.find((vid) =>
       vid.name === name ? vid : null
     );
@@ -17,16 +21,24 @@ const FileMerger = ({ videosToCombine, uploadedVideos, setRandomNum }) => {
     const myRegEx = /^([a-zA-Z0-9_-]+)$/;
     var isValid = myRegEx.test(name);
     if (!isValid)
-      return setStatus(
-        "Only letters, numbers, dash(-) and underscore(_) are allowed. "
-      );
+      return setStatus({
+        error: true,
+        msg: "Only letters, numbers, dash(-) and underscore(_) are allowed. ",
+      });
 
     if (nameAlreadyExists)
-      return setStatus(`File with name "${name}" already exists.`);
+      return setStatus({
+        error: true,
+        msg: `File with name "${name}" already exists.`,
+      });
     const zeroVideosChosen = videosToCombine.find((vid) =>
       vid.combineStatus == true ? vid : null
     );
-    if (!zeroVideosChosen) return setStatus("You did not select any video");
+    if (!zeroVideosChosen)
+      return setStatus({
+        error: true,
+        msg: "You did not select any video",
+      });
 
     const videos = videosToCombine.filter((vid) =>
       vid.combineStatus ? vid : null
@@ -57,9 +69,14 @@ const FileMerger = ({ videosToCombine, uploadedVideos, setRandomNum }) => {
           value="Combine selected videos"
           disabled={loading}
         />
-        <span className="combine-videos__status">
-          {loading ? <Loader /> : status}
-        </span>
+        {loading ? (
+          <Loader />
+        ) : (
+          <div
+            className="combine-videos__status"
+            dangerouslySetInnerHTML={{ __html: status.msg }}
+          ></div>
+        )}
       </form>
     </div>
   );

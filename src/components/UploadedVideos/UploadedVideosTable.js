@@ -2,7 +2,7 @@ import React from "react";
 const UploadedVideosTable = ({ rows }) => {
   if (rows.length > 0) {
     return (
-      <table class="customers">
+      <table className="customers">
         <thead>
           <tr>
             <th>Id</th>

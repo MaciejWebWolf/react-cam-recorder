@@ -6,7 +6,7 @@ export function removeDataFromDb(item, setStatus, setRandomNum) {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
       //console.log(xmlhttp.responseText);
       const data = JSON.parse(xmlhttp.responseText);
-      setStatus(data.msg);
+      setStatus(data);
       if (!data.error) {
         setRandomNum(Math.random());
       }

@@ -11,8 +11,7 @@ const UploadedVideosTableRow = ({
   const { id, name, type, size, date } = row;
   const item = { id, name, type };
 
-  let mbytes = size / 1024 / 1024;
-  mbytes = mbytes.toFixed(2);
+  const mbytes = (size / 1024 / 1024).toFixed(2);
 
   let isEnabled;
   let index;

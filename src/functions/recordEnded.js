@@ -20,21 +20,24 @@ export function recordEnded(
     blobUrl,
     setRandomNum,
   };
-  const recordedVideosNew = [...recordedVideos, recordedVideo];
-  console.log(recordedVideosNew);
-  setRecordedVideos(recordedVideosNew);
+  const recordedVideosClone = [...recordedVideos, recordedVideo];
+  // let recordedVideosClone = JSON.parse(JSON.stringify(recordedVideos));
+  // recordedVideosClone = [...recordedVideosClone, recordedVideo];
+
+  console.log(recordedVideosClone);
+  setRecordedVideos(recordedVideosClone);
   setRecording({ camera: false, screen: false });
-  console.log(video.duration);
-  console.log(video.currentTime);
-  console.log(video.currentTime);
-  async function x() {
-    // When the metadata is loaded, duration can be read.
-    await new Promise((r) => setTimeout(r, 1000));
-    video.currentTime = 10000000 * Math.random();
-    // video.currentTime = 123321123321;
-    console.log(video.currentTime);
-    console.log(video.duration);
-    video.removeEventListener("loadedmetadata", x);
-  }
-  video.addEventListener("loadedmetadata", x);
+  // console.log(video.duration);
+  // console.log(video.currentTime);
+  // console.log(video.currentTime);
+  // async function x() {
+  //   // When the metadata is loaded, duration can be read.
+  //   await new Promise((r) => setTimeout(r, 1000));
+  //   video.currentTime = 10000000 * Math.random();
+  //   // video.currentTime = 123321123321;
+  //   console.log(video.currentTime);
+  //   console.log(video.duration);
+  //   video.removeEventListener("loadedmetadata", x);
+  // }
+  // video.addEventListener("loadedmetadata", x);
 }

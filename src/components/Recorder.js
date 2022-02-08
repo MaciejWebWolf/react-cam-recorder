@@ -57,7 +57,10 @@ const Recorder = ({ setRandomNum }) => {
       </div>
 
       <SmallCamera isSmallCamera={isSmallCamera} />
-      <RecordedVideos recordedVideos={recordedVideos} />
+      <RecordedVideos
+        recordedVideos={recordedVideos}
+        setRecordedVideos={setRecordedVideos}
+      />
     </div>
   );
 };

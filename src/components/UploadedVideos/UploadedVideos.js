@@ -60,7 +60,10 @@ const UploadedVideos = ({
       return (
         <div className="uploaded-videos">
           <h3>Uploaded Videos</h3>
-          <p className="uploaded-videos__status">{status}</p>
+          <div
+            className="uploaded-videos__status"
+            dangerouslySetInnerHTML={{ __html: status.msg }}
+          ></div>
           <div className="uploaded-videos__results">
             <UploadedVideosTable rows={rows} />;
           </div>
