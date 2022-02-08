@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { record } from "../functions/record.js";
 import SmallCamera from "./SmallCamera.js";
-import RecordedVideos from "./RecordedVideos.js";
+import RecordedVideos from "./RecordedVideos/RecordedVideos.js";
 import Buttons from "./Buttons.js";
 
 const Recorder = ({ setRandomNum }) => {

@@ -11,9 +11,9 @@ export function getDataFromDb(setError, setIsLoaded, setResponse) {
   };
   xmlhttp.onerror = (error) => {
     setError(error);
+    setIsLoaded(true);
   };
 
-  // xmlhttp.open("POST", "./php/getDataFromDb.php");
   xmlhttp.open("POST", apiURL + "api/php/getDataFromDb.php");
   xmlhttp.send();
 }

@@ -1,27 +1,19 @@
 import { apiURL } from "../App.js";
 
-export function removeDataFromDb(
-  id,
-  name,
-  type,
-  setUploadStatus,
-  setRandomNum
-) {
+export function removeDataFromDb(item, setStatus, setRandomNum) {
   const xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = () => {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-      //do something if OK
-      console.log(xmlhttp.responseText);
+      //console.log(xmlhttp.responseText);
       const data = JSON.parse(xmlhttp.responseText);
-      console.log(data);
-      setUploadStatus(data.msg);
+      setStatus(data.msg);
       if (!data.error) {
         setRandomNum(Math.random());
       }
     }
   };
-  const data = { id, name, type };
-  const json = JSON.stringify(data);
+  setStatus("loading");
+  const json = JSON.stringify(item);
   xmlhttp.open("POST", apiURL + "api/php/removeDataFromDb.php");
   xmlhttp.send(json);
 }

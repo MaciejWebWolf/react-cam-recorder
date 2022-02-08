@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 import { uploadFile } from "../functions/uploadFile.js";
+import Loader from "./Loader.js";
+import { serverMaxSizeBytes } from "../App.js";
 
 const FileUploader = ({ setRandomNum }) => {
-  const [uploadStatus, setUploadStatus] = useState("");
-  const [file, setFile] = useState();
+  const [status, setStatus] = useState("");
+  const [file, setFile] = useState(null);
+  const serverMaxSizeMbytes = (serverMaxSizeBytes / 1024 / 1024).toFixed();
 
   function handleSubmit(e) {
     e.preventDefault();
-    // const fullName = file.name;
-    // const shortName = fullName.substring(0, fullName.indexOf("."));
+    if (!file) return;
+    if (file.size > serverMaxSizeBytes)
+      return setStatus(`File is too large (max ${serverMaxSizeMbytes}MB)`);
+
     const index = file.name.lastIndexOf(".");
     let shortName = file.name.substring(0, index);
     shortName = shortName.replace(
@@ -20,16 +25,30 @@ const FileUploader = ({ setRandomNum }) => {
     console.log(shortName);
     console.log(fullName);
     const item = { file, fullName, shortName, type };
-    uploadFile(item, e, setUploadStatus, setRandomNum);
+    uploadFile(item, setStatus, setRandomNum);
   }
+
+  const loading = status === "loading";
 
   return (
     <div className="file-uploader">
       <h3>Upload a file</h3>
-      <form method="post" encType="multipart/form-data" onSubmit={handleSubmit}>
+      <form
+        method="post"
+        encType="multipart/form-data"
+        onSubmit={handleSubmit}
+        className="file-uploader__form"
+      >
         <input type="file" onChange={(e) => setFile(e.target.files[0])} />
-        <input type="submit" value="Upload file" name="submit" />
-        <p className="results">{uploadStatus}</p>
+        <input
+          disabled={loading}
+          type="submit"
+          value="Upload file"
+          name="submit"
+        />
+        <span className="file-uploader__status">
+          {loading ? <Loader /> : status}
+        </span>
       </form>
     </div>
   );

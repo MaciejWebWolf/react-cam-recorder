@@ -4,10 +4,11 @@ import FileCombiner from "./components/FileCombiner";
 import FileUploader from "./components/FileUploader.js";
 import FileMerger from "./components/FileMerger.js";
 import Recorder from "./components/Recorder";
-import UploadedVideos from "./components/UploadedVideos";
+import UploadedVideos from "./components/UploadedVideos/UploadedVideos";
 
-export const apiURL = "https://pravna.git-webwolf.pl/";
-// export const apiURL = "http://localhost/";
+export const serverMaxSizeBytes = 60000000;
+// export const apiURL = "https://pravna.git-webwolf.pl/";
+export const apiURL = "http://localhost/";
 
 function App() {
   const [randomNum, setRandomNum] = useState(0);
@@ -32,6 +33,7 @@ function App() {
         <FileMerger
           videosToCombine={videosToCombine}
           uploadedVideos={uploadedVideos}
+          setRandomNum={setRandomNum}
         />
       </div>
     </div>

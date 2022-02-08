@@ -1,23 +1,26 @@
 import React from "react";
-import RecordedVideoRow from "./RecordedVideosRow";
+import RecordedVideosTable from "./RecordedVideosTable";
+import RecordedVideosTableRow from "./RecordedVideosTableRow";
+
 const RecordedVideos = ({ recordedVideos }) => {
-  const videos = recordedVideos.map((video) => {
+  const rows = recordedVideos.map((video) => {
     const { blob, blobUrl, setRandomNum } = video;
     return (
-      <RecordedVideoRow
+      <RecordedVideosTableRow
         file={blob}
         blobUrl={blobUrl}
         setRandomNum={setRandomNum}
         key={blobUrl}
-      ></RecordedVideoRow>
+      ></RecordedVideosTableRow>
     );
   });
 
   return (
     <div className="recorded-videos">
       <h3>Recorded Videos</h3>
-      <div className="recorded-videos__list">
-        {videos.length > 0 ? videos : "0 results"}
+      <div className="recorded-videos__table">
+        {/* {videos.length > 0 ? videos : "0 results"} */}
+        <RecordedVideosTable rows={rows} />
       </div>
     </div>
   );

@@ -1,52 +1,45 @@
 import { apiURL } from "../App.js";
+import { mergeFiles } from "../functions/mergeFiles.js";
+import Loader from "./Loader.js";
 
 import React, { useState } from "react";
-const FileMerger = ({ videosToCombine, uploadedVideos }) => {
+const FileMerger = ({ videosToCombine, uploadedVideos, setRandomNum }) => {
   const [name, setName] = useState("");
-  const [info, setInfo] = useState("");
+  const [status, setStatus] = useState("");
 
   function merge(e) {
     e.preventDefault();
-    if (name === "") return setInfo("Output file name is missing");
+    if (name === "") return setStatus("Output file name is missing");
     const nameAlreadyExists = uploadedVideos.find((vid) =>
       vid.name === name ? vid : null
     );
+
+    const myRegEx = /^([a-zA-Z0-9_-]+)$/;
+    var isValid = myRegEx.test(name);
+    if (!isValid)
+      return setStatus(
+        "Only letters, numbers, dash(-) and underscore(_) are allowed. "
+      );
+
     if (nameAlreadyExists)
-      return setInfo(`File with name "${name}" already exists.`);
+      return setStatus(`File with name "${name}" already exists.`);
     const zeroVideosChosen = videosToCombine.find((vid) =>
       vid.combineStatus == true ? vid : null
     );
-    if (!zeroVideosChosen) return setInfo("You did not select any video");
+    if (!zeroVideosChosen) return setStatus("You did not select any video");
 
-    setInfo("");
-
-    const xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = () => {
-      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        console.log(xmlhttp.responseText);
-      }
-    };
-    xmlhttp.onerror = (error) => {
-      console.log(error);
-    };
-
-    // console.log(videosToCombine);
     const videos = videosToCombine.filter((vid) =>
       vid.combineStatus ? vid : null
     );
-    // console.log(videos);
-
-    const fd = new FormData();
     videos.sort((a, b) => a.order - b.order);
-    const json = JSON.stringify(videos);
-    fd.append("videos", json);
-    fd.append("outputName", name);
-    xmlhttp.open("POST", apiURL + "api/php/merge.php");
-    xmlhttp.send(fd);
+
+    setStatus("");
+    mergeFiles(videos, name, setStatus, setRandomNum);
   }
 
   if (uploadedVideos.length > 0) {
   }
+  const loading = status === "loading";
 
   return (
     <div className="combine-videos">
@@ -57,9 +50,16 @@ const FileMerger = ({ videosToCombine, uploadedVideos }) => {
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          disabled={loading}
         />
-        <input type="submit" value="Combine selected videos" />
-        <p className="combine-videos__info">{info}</p>
+        <input
+          type="submit"
+          value="Combine selected videos"
+          disabled={loading}
+        />
+        <span className="combine-videos__status">
+          {loading ? <Loader /> : status}
+        </span>
       </form>
     </div>
   );
