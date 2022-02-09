@@ -16,7 +16,6 @@ export async function record(
   setStream,
   recordedVideos,
   setRecordedVideos,
-  setRandomNum,
   setRecording,
   setIsSmallCamera,
   vidRef
@@ -52,20 +51,10 @@ export async function record(
   const recorder = new MediaRecorder(stream);
   let chunks = [];
   recorder.ondataavailable = (event) => {
-    if (event.data.size > 0) {
-      chunks.push(event.data);
-      // console.log(recorder);
-    }
+    if (event.data.size > 0) chunks.push(event.data);
   };
   recorder.onstop = () => {
-    recordEnded(
-      chunks,
-      video,
-      recordedVideos,
-      setRecordedVideos,
-      setRecording,
-      setRandomNum
-    );
+    recordEnded(chunks, video, recordedVideos, setRecordedVideos, setRecording);
   };
 
   recorder.start(200);

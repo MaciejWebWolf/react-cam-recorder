@@ -3,8 +3,7 @@ export function recordEnded(
   video,
   recordedVideos,
   setRecordedVideos,
-  setRecording,
-  setRandomNum
+  setRecording
 ) {
   console.log("recorder onstop");
   const blob = new Blob(chunks, {
@@ -15,10 +14,18 @@ export function recordEnded(
   video.srcObject = null;
   video.src = blobUrl;
   video.muted = false;
+
+  const type = "mp4";
+  const fullName = blobUrl.slice(blobUrl.length - 12) + "." + type;
+  const shortName = blobUrl.slice(blobUrl.length - 12);
+  const size = blob.size;
   const recordedVideo = {
     blob,
     blobUrl,
-    setRandomNum,
+    type,
+    fullName,
+    shortName,
+    size,
   };
   const recordedVideosClone = [...recordedVideos, recordedVideo];
   // let recordedVideosClone = JSON.parse(JSON.stringify(recordedVideos));

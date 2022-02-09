@@ -2,19 +2,20 @@ import React, { useState } from "react";
 import RecordedVideosTable from "./RecordedVideosTable";
 import RecordedVideosTableRow from "./RecordedVideosTableRow";
 
-const RecordedVideos = ({ recordedVideos, setRecordedVideos }) => {
-  const [status, setStatus] = useState("");
+const RecordedVideos = ({
+  recordedVideos,
+  setRecordedVideos,
+  setRandomNum,
+}) => {
+  const [textStatus, setTextStatus] = useState("");
 
   const rows = recordedVideos.map((video) => {
-    const { blob, blobUrl, setRandomNum } = video;
     return (
       <RecordedVideosTableRow
-        key={blobUrl}
-        file={blob}
-        blobUrl={blobUrl}
+        key={video.shortName}
+        video={video}
         setRandomNum={setRandomNum}
-        // status={status}
-        setTextStatus={setStatus}
+        setTextStatus={setTextStatus}
         recordedVideos={recordedVideos}
         setRecordedVideos={setRecordedVideos}
       ></RecordedVideosTableRow>
@@ -26,7 +27,7 @@ const RecordedVideos = ({ recordedVideos, setRecordedVideos }) => {
       <h3>Recorded Videos</h3>
       <div
         className="recorded-videos__status"
-        dangerouslySetInnerHTML={{ __html: status.msg }}
+        dangerouslySetInnerHTML={{ __html: textStatus.msg }}
       ></div>
       <div className="recorded-videos__table">
         <RecordedVideosTable rows={rows} />

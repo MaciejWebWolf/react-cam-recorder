@@ -5,30 +5,25 @@ import Check from "../../icons/check.svg";
 import SadFace from "../../icons/sad-face.svg";
 
 const RecordedVideosTableRow = ({
-  file,
-  blobUrl,
+  video,
   setRandomNum,
-  // status,
   setTextStatus,
   recordedVideos,
   setRecordedVideos,
 }) => {
   const [status, setStatus] = useState("");
-  console.log(status);
+
   useEffect(() => {
     setTextStatus(status);
   }, [status]);
 
   console.log(recordedVideos);
-  const type = "mp4";
-  const fullName = blobUrl.slice(blobUrl.length - 12) + "." + type;
-  const shortName = blobUrl.slice(blobUrl.length - 12);
-  // const [status, setStatus] = useState("");
-  const size = file.size;
+
+  const { blob, blobUrl, type, fullName, shortName, size } = video;
   const mbytes = (size / 1024 / 1024).toFixed(2);
 
   function upload(e) {
-    const item = { file, fullName, shortName, type };
+    const item = { blob, fullName, shortName, type };
     e.preventDefault();
     uploadFile(item, setStatus, setRandomNum);
   }
@@ -40,11 +35,14 @@ const RecordedVideosTableRow = ({
 
   function remove() {
     const index = recordedVideos.findIndex((vid) => vid.blobUrl === blobUrl);
-    console.log(index);
-    let recordedVideosClone = JSON.parse(JSON.stringify(recordedVideos));
+    const name = recordedVideos[index];
+
+    // let recordedVideosClone = JSON.parse(JSON.stringify(recordedVideos));
+    let recordedVideosClone = [...recordedVideos];
     recordedVideosClone.splice(index, 1);
     console.log(recordedVideosClone);
     setRecordedVideos(recordedVideosClone);
+    setTextStatus({ msg: "" });
   }
 
   return (

@@ -28,7 +28,7 @@ const Recorder = ({ setRandomNum }) => {
       setStream,
       recordedVideos,
       setRecordedVideos,
-      setRandomNum,
+      // setRandomNum,
       setRecording,
       setIsSmallCamera,
       vidRef
@@ -60,6 +60,7 @@ const Recorder = ({ setRandomNum }) => {
       <RecordedVideos
         recordedVideos={recordedVideos}
         setRecordedVideos={setRecordedVideos}
+        setRandomNum={setRandomNum}
       />
     </div>
   );

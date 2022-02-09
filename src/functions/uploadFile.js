@@ -17,7 +17,7 @@ export function uploadFile(item, setStatus, setRandomNum) {
   };
   setStatus("loading");
   const fd = new FormData();
-  fd.append("video", item.file, item.fullName);
+  fd.append("video", item.blob, item.fullName);
   fd.append("type", item.type);
   fd.append("shortName", item.shortName);
   xmlhttp.open("POST", apiURL + "api/php/uploadFile.php");

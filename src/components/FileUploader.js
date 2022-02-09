@@ -22,9 +22,8 @@ const FileUploader = ({ setRandomNum }) => {
     );
     const type = file.name.substring(index + 1);
     const fullName = shortName + "." + type;
-    console.log(shortName);
-    console.log(fullName);
-    const item = { file, fullName, shortName, type };
+    const blob = file;
+    const item = { blob, fullName, shortName, type };
     uploadFile(item, setStatus, setRandomNum);
   }
 
