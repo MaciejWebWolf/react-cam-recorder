@@ -1,4 +1,4 @@
-export function recordEnded(
+export async function recordEnded(
   chunks,
   video,
   recordedVideos,
@@ -14,26 +14,35 @@ export function recordEnded(
   video.srcObject = null;
   video.src = blobUrl;
   video.muted = false;
+  video.addEventListener("loadedmetadata", getDimensions);
+  async function getDimensions() {
+    const resolution = `${video.videoWidth}x${video.videoHeight}`;
+    console.log(resolution);
+    video.removeEventListener("loadedmetadata", getDimensions);
+    prepareData(resolution);
+  }
+  function prepareData(resolution) {
+    const type = "mp4";
+    const fullName = blobUrl.slice(blobUrl.length - 12) + "." + type;
+    const shortName = blobUrl.slice(blobUrl.length - 12);
+    const size = blob.size;
+    const recordedVideo = {
+      blob,
+      blobUrl,
+      type,
+      fullName,
+      shortName,
+      size,
+      resolution,
+    };
+    const recordedVideosClone = [...recordedVideos, recordedVideo];
+    // let recordedVideosClone = JSON.parse(JSON.stringify(recordedVideos));
+    // recordedVideosClone = [...recordedVideosClone, recordedVideo];
+    console.log(recordedVideosClone);
+    setRecordedVideos(recordedVideosClone);
+    setRecording({ camera: false, screen: false });
+  }
 
-  const type = "mp4";
-  const fullName = blobUrl.slice(blobUrl.length - 12) + "." + type;
-  const shortName = blobUrl.slice(blobUrl.length - 12);
-  const size = blob.size;
-  const recordedVideo = {
-    blob,
-    blobUrl,
-    type,
-    fullName,
-    shortName,
-    size,
-  };
-  const recordedVideosClone = [...recordedVideos, recordedVideo];
-  // let recordedVideosClone = JSON.parse(JSON.stringify(recordedVideos));
-  // recordedVideosClone = [...recordedVideosClone, recordedVideo];
-
-  console.log(recordedVideosClone);
-  setRecordedVideos(recordedVideosClone);
-  setRecording({ camera: false, screen: false });
   // console.log(video.duration);
   // console.log(video.currentTime);
   // console.log(video.currentTime);

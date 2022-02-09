@@ -19,11 +19,11 @@ const RecordedVideosTableRow = ({
 
   console.log(recordedVideos);
 
-  const { blob, blobUrl, type, fullName, shortName, size } = video;
+  const { blob, blobUrl, type, fullName, shortName, size, resolution } = video;
   const mbytes = (size / 1024 / 1024).toFixed(2);
 
   function upload(e) {
-    const item = { blob, fullName, shortName, type };
+    const item = { blob, fullName, shortName, type, resolution };
     e.preventDefault();
     uploadFile(item, setStatus, setRandomNum);
   }
@@ -49,6 +49,7 @@ const RecordedVideosTableRow = ({
     <tr>
       <td>{shortName}</td>
       <td>{mbytes}</td>
+      <td>{resolution}</td>
       <td>
         <button onClick={remove}>Remove</button>{" "}
       </td>

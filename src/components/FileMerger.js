@@ -6,6 +6,7 @@ import React, { useState } from "react";
 const FileMerger = ({ videosToCombine, uploadedVideos, setRandomNum }) => {
   const [name, setName] = useState("");
   const [status, setStatus] = useState("");
+  const [resolution, setResolution] = useState("640x480");
 
   function merge(e) {
     e.preventDefault();
@@ -46,23 +47,34 @@ const FileMerger = ({ videosToCombine, uploadedVideos, setRandomNum }) => {
     videos.sort((a, b) => a.order - b.order);
 
     setStatus("");
-    mergeFiles(videos, name, setStatus, setRandomNum);
+    mergeFiles(videos, name, resolution, setStatus, setRandomNum);
   }
 
-  if (uploadedVideos.length > 0) {
-  }
+  // if (uploadedVideos.length > 0) {
+  // }
   const loading = status === "loading";
 
   return (
     <div className="combine-videos">
       <h3>Combine videos</h3>
       <form method="POST" onSubmit={merge} className="combine-videos__form">
-        Output file name:
+        <label htmlFor="resolution">Resolution</label>
+        <select
+          name="resolution"
+          value={resolution}
+          onChange={(e) => setResolution(e.target.value)}
+        >
+          <option value="640x480">640x480</option>
+          <option value="1280x720">1280x720</option>
+          <option value="1920x1080">1920x1080</option>
+        </select>
+        <label htmlFor="name">Output file name:</label>
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
           disabled={loading}
+          name="name"
         />
         <input
           type="submit"

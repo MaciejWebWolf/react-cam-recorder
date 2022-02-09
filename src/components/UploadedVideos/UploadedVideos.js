@@ -26,13 +26,15 @@ const UploadedVideos = ({
     console.log("useeffect setVideos");
     if (response != null && response.length > 0) {
       const videos = response.map((row) => {
-        const { id, name, type } = row;
+        console.log(row);
+        const { id, name, type, resolution } = row;
         return {
           id,
           combineStatus: false,
           order: 0,
           name,
           type,
+          resolution,
         };
       });
       console.log(videos);
@@ -65,7 +67,7 @@ const UploadedVideos = ({
             dangerouslySetInnerHTML={{ __html: status.msg }}
           ></div>
           <div className="uploaded-videos__results">
-            <UploadedVideosTable rows={rows} />;
+            <UploadedVideosTable rows={rows} />
           </div>
         </div>
       );

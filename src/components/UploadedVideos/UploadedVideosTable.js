@@ -10,6 +10,7 @@ const UploadedVideosTable = ({ rows }) => {
             <th>Type</th>
             <th>Date</th>
             <th>Size [MB]</th>
+            <th>Resolution</th>
             <th>Remove</th>
             <th>Combine</th>
             <th>Order</th>

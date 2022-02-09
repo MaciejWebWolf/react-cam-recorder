@@ -20,6 +20,7 @@ export function uploadFile(item, setStatus, setRandomNum) {
   fd.append("video", item.blob, item.fullName);
   fd.append("type", item.type);
   fd.append("shortName", item.shortName);
+  fd.append("resolution", item.resolution);
   xmlhttp.open("POST", apiURL + "api/php/uploadFile.php");
   xmlhttp.send(fd);
 }

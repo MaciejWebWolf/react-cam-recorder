@@ -8,7 +8,7 @@ const UploadedVideosTableRow = ({
   setStatus,
   setRandomNum,
 }) => {
-  const { id, name, type, size, date } = row;
+  const { id, name, type, size, date, resolution } = row;
   const item = { id, name, type };
 
   const mbytes = (size / 1024 / 1024).toFixed(2);
@@ -44,6 +44,7 @@ const UploadedVideosTableRow = ({
       <td>{type}</td>
       <td>{date}</td>
       <td>{mbytes}</td>
+      <td>{resolution}</td>
       <td>
         <button
           className="remove-button"

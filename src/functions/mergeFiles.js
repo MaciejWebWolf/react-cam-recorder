@@ -1,6 +1,6 @@
 import { apiURL } from "../App";
 
-export function mergeFiles(videos, name, setStatus, setRandomNum) {
+export function mergeFiles(videos, name, resolution, setStatus, setRandomNum) {
   const xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = () => {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -20,6 +20,7 @@ export function mergeFiles(videos, name, setStatus, setRandomNum) {
   const json = JSON.stringify(videos);
   fd.append("videos", json);
   fd.append("outputName", name);
+  fd.append("resolution", resolution);
   xmlhttp.open("POST", apiURL + "api/php/merge.php");
   xmlhttp.send(fd);
 }

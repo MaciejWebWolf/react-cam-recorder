@@ -5,8 +5,9 @@ import FileUploader from "./components/FileUploader.js";
 import FileMerger from "./components/FileMerger.js";
 import Recorder from "./components/Recorder";
 import UploadedVideos from "./components/UploadedVideos/UploadedVideos";
+import CheckResolutionVideo from "./components/CheckResolutionVideo";
 
-export const serverMaxSizeBytes = 60000000;
+export const serverMaxSizeBytes = 600000000;
 // export const apiURL = "https://pravna.git-webwolf.pl/";
 export const apiURL = "http://localhost/";
 
@@ -35,6 +36,12 @@ function App() {
           uploadedVideos={uploadedVideos}
           setRandomNum={setRandomNum}
         />
+        {/* <CheckResolutionVideo /> */}
+        <video
+          src=""
+          className="check-resolution-video"
+          style={{ display: "none" }}
+        ></video>
       </div>
     </div>
   );
