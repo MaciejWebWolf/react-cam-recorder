@@ -44,50 +44,53 @@ const UploadedVideosTableRow = ({
     const fullName = name + "." + type;
     const path = apiURL + "api/uploads/" + fullName;
     videoEl.src = path;
+    videoEl.autoplay = true;
+    videoEl.muted = false;
     setIsPlayerActive(true);
   }
   // console.log(" row render");
+  if (videosToCombine.length > 0) {
+    return (
+      <tr>
+        <td>{id}</td>
+        <td>{name}</td>
+        <td>{type}</td>
+        <td>{date}</td>
+        <td>{mbytes}</td>
+        <td>{resolution}</td>
+        <td>
+          <button onClick={playVideo}>Play</button>
+        </td>
 
-  return (
-    <tr>
-      <td>{id}</td>
-      <td>{name}</td>
-      <td>{type}</td>
-      <td>{date}</td>
-      <td>{mbytes}</td>
-      <td>{resolution}</td>
-      <td>
-        <button onClick={playVideo}>Play</button>
-      </td>
-
-      <td>
-        <button
-          className="remove-button"
-          onClick={() => removeDataFromDb(item, setStatus, setRandomNum)}
-        >
-          Remove
-        </button>
-      </td>
-      <td>
-        <input
-          type="checkbox"
-          data-id={id}
-          checked={index != -1 ? videosToCombine[index].combineStatus : false}
-          onChange={handleInputChange}
-        />
-      </td>
-      <td>
-        <input
-          data-id={id}
-          type="number"
-          min="0"
-          disabled={!isEnabled}
-          onChange={handleInputChange}
-          value={index != -1 ? videosToCombine[index].order : 0}
-        />
-      </td>
-    </tr>
-  );
+        <td>
+          <button
+            className="remove-button"
+            onClick={() => removeDataFromDb(item, setStatus, setRandomNum)}
+          >
+            Remove
+          </button>
+        </td>
+        <td>
+          <input
+            type="checkbox"
+            data-id={id}
+            checked={index != -1 ? videosToCombine[index].combineStatus : false}
+            onChange={handleInputChange}
+          />
+        </td>
+        <td>
+          <input
+            data-id={id}
+            type="number"
+            min="0"
+            disabled={!isEnabled}
+            onChange={handleInputChange}
+            value={index != -1 ? videosToCombine[index].order : 0}
+          />
+        </td>
+      </tr>
+    );
+  } else return <tr></tr>;
 };
 
 export default UploadedVideosTableRow;

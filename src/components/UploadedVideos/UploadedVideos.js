@@ -49,35 +49,35 @@ const UploadedVideos = ({
   if (error) return <UploadedVideosError error={error} />;
   else if (!isLoaded) return <Loader />;
   else {
-    if (response.length > 0) {
-      const rows = response.map((row) => {
-        return (
-          <UploadedVideosTableRow
-            key={row.id}
-            row={row}
-            videosToCombine={videosToCombine}
-            setVideosToCombine={setVideosToCombine}
-            setStatus={setStatus}
-            setRandomNum={setRandomNum}
-            videoEl={videoEl}
-            setIsPlayerActive={setIsPlayerActive}
-          />
-        );
-      });
+    // if (response.length > 0) {
+    const rows = response.map((row) => {
       return (
-        <div className="uploaded-videos">
-          <h3>Uploaded Videos</h3>
-          <div
-            className="uploaded-videos__status"
-            dangerouslySetInnerHTML={{ __html: status.msg }}
-          ></div>
-          <div className="uploaded-videos__results">
-            <UploadedVideosTable rows={rows} />
-          </div>
-        </div>
+        <UploadedVideosTableRow
+          key={row.id}
+          row={row}
+          videosToCombine={videosToCombine}
+          setVideosToCombine={setVideosToCombine}
+          setStatus={setStatus}
+          setRandomNum={setRandomNum}
+          videoEl={videoEl}
+          setIsPlayerActive={setIsPlayerActive}
+        />
       );
-    }
+    });
+    return (
+      <div className="uploaded-videos">
+        <h3>Uploaded Videos</h3>
+        <div
+          className="uploaded-videos__status"
+          dangerouslySetInnerHTML={{ __html: status.msg }}
+        ></div>
+        <div className="uploaded-videos__results">
+          <UploadedVideosTable rows={rows} />
+        </div>
+      </div>
+    );
   }
+  // }
 };
 
 export default UploadedVideos;

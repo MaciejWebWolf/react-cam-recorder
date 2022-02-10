@@ -46,6 +46,8 @@ const RecordedVideosTableRow = ({
   }
   function playVideo() {
     videoEl.src = blobUrl;
+    videoEl.autoplay = true;
+    videoEl.muted = false;
     setIsPlayerActive(true);
   }
   // console.log("render");

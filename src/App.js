@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./App.css";
 import FileCombiner from "./components/FileCombiner";
 import FileUploader from "./components/FileUploader.js";
@@ -14,10 +14,14 @@ function App() {
   const [randomNum, setRandomNum] = useState(0);
   const [videosToCombine, setVideosToCombine] = useState([]);
   const [uploadedVideos, setUploadedVideos] = useState([]);
+  const [ref, setRef] = useState(null);
 
   const vidRef = useRef(null);
   const videoEl = vidRef.current;
   const [isPlayerActive, setIsPlayerActive] = useState(false);
+  useEffect(() => {
+    if (ref === null) setRef(true);
+  }, [ref]);
 
   function disablePlayer() {
     videoEl.src = null;
@@ -35,6 +39,7 @@ function App() {
       <div className="right">
         <FileUploader
           setRandomNum={setRandomNum}
+          disablePlayer={disablePlayer}
           videoEl={videoEl}
         ></FileUploader>
         {/* <FileCombiner /> */}
@@ -52,6 +57,7 @@ function App() {
           uploadedVideos={uploadedVideos}
           setRandomNum={setRandomNum}
           videoEl={videoEl}
+          disablePlayer={disablePlayer}
         />
         <div
           className={

@@ -13,7 +13,9 @@ export function removeDataFromDb(item, setStatus, setRandomNum) {
     }
   };
   setStatus("loading");
+  const fd = new FormData();
   const json = JSON.stringify(item);
+  fd.append("video", json);
   xmlhttp.open("POST", apiURL + "api/php/removeDataFromDb.php");
-  xmlhttp.send(json);
+  xmlhttp.send(fd);
 }

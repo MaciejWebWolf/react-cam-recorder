@@ -8,6 +8,7 @@ const FileMerger = ({
   uploadedVideos,
   setRandomNum,
   videoEl,
+  disablePlayer = { disablePlayer },
 }) => {
   const [name, setName] = useState("");
   const [status, setStatus] = useState("");
@@ -15,6 +16,7 @@ const FileMerger = ({
 
   function merge(e) {
     e.preventDefault();
+    disablePlayer();
     if (name === "")
       return setStatus({
         error: true,

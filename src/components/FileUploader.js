@@ -3,14 +3,16 @@ import { uploadFile } from "../functions/uploadFile.js";
 import Loader from "./Loader.js";
 import { serverMaxSizeBytes } from "../App.js";
 
-const FileUploader = ({ setRandomNum, videoEl }) => {
+const FileUploader = ({ setRandomNum, videoEl, disablePlayer }) => {
   const [status, setStatus] = useState("");
   const [file, setFile] = useState(null);
 
   const serverMaxSizeMbytes = (serverMaxSizeBytes / 1024 / 1024).toFixed();
+  // console.log(videoEl);
 
   function handleSubmit(e) {
     e.preventDefault();
+    disablePlayer();
     if (!file) return;
     if (file.size > serverMaxSizeBytes) {
       console.log("too large");
