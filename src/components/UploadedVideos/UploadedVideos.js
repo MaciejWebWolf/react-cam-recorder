@@ -26,7 +26,7 @@ const UploadedVideos = ({
     console.log("useeffect setVideos");
     if (response != null && response.length > 0) {
       const videos = response.map((row) => {
-        console.log(row);
+        // console.log(row);
         const { id, name, type, resolution } = row;
         return {
           id,

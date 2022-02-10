@@ -1,17 +1,13 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import { uploadFile } from "../functions/uploadFile.js";
 import Loader from "./Loader.js";
 import { serverMaxSizeBytes } from "../App.js";
 
-const FileUploader = ({ setRandomNum }) => {
+const FileUploader = ({ setRandomNum, videoEl }) => {
   const [status, setStatus] = useState("");
   const [file, setFile] = useState(null);
-  const [resolution, setResolution] = useState(null);
 
-  const vidRef = useRef(null);
   const serverMaxSizeMbytes = (serverMaxSizeBytes / 1024 / 1024).toFixed();
-
-  // console.log(file);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -32,25 +28,9 @@ const FileUploader = ({ setRandomNum }) => {
     const type = file.name.substring(index + 1);
     const fullName = shortName + "." + type;
     const blob = file;
-    const item = { blob, fullName, shortName, type, resolution };
-    uploadFile(item, setStatus, setRandomNum);
+    const item = { blob, fullName, shortName, type };
+    uploadFile(item, setStatus, setRandomNum, videoEl);
   }
-  function checkVideoResolution() {
-    var objectUrl = URL.createObjectURL(file);
-    const video = vidRef.current;
-    video.src = objectUrl;
-    video.addEventListener("loadedmetadata", getDimensions);
-    function getDimensions() {
-      const resolution = `${this.videoWidth}x${this.videoHeight}`;
-      console.log(resolution);
-      setResolution(resolution);
-      video.removeEventListener("loadedmetadata", getDimensions);
-    }
-  }
-
-  useEffect(() => {
-    if (file) checkVideoResolution();
-  }, [file]);
 
   function handleChange(e) {
     setFile(e.target.files[0]);
@@ -59,7 +39,6 @@ const FileUploader = ({ setRandomNum }) => {
 
   return (
     <div className="file-uploader">
-      <video ref={vidRef} style={{ display: "none" }}></video>
       <h3>Upload a file</h3>
       <form
         method="post"
