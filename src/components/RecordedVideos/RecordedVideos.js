@@ -6,6 +6,8 @@ const RecordedVideos = ({
   recordedVideos,
   setRecordedVideos,
   setRandomNum,
+  videoEl,
+  setIsPlayerActive,
 }) => {
   const [textStatus, setTextStatus] = useState("");
 
@@ -18,10 +20,12 @@ const RecordedVideos = ({
         setTextStatus={setTextStatus}
         recordedVideos={recordedVideos}
         setRecordedVideos={setRecordedVideos}
+        videoEl={videoEl}
+        setIsPlayerActive={setIsPlayerActive}
       ></RecordedVideosTableRow>
     );
   });
-
+  // console.log("recordedVideos render");
   return (
     <div className="recorded-videos">
       <h3>Recorded Videos</h3>

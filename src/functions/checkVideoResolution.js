@@ -1,5 +1,6 @@
 export async function checkVideoResolution(file, video, callback) {
   let url;
+  console.log(file);
   if (typeof file == "object") url = URL.createObjectURL(file);
   else url = file;
 

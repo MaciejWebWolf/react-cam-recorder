@@ -10,6 +10,8 @@ const RecordedVideosTableRow = ({
   setTextStatus,
   recordedVideos,
   setRecordedVideos,
+  videoEl,
+  setIsPlayerActive,
 }) => {
   const [status, setStatus] = useState("");
 
@@ -17,15 +19,15 @@ const RecordedVideosTableRow = ({
     setTextStatus(status);
   }, [status]);
 
-  console.log(recordedVideos);
+  // console.log(recordedVideos);
 
   const { blob, blobUrl, type, fullName, shortName, size, resolution } = video;
   const mbytes = (size / 1024 / 1024).toFixed(2);
 
   function upload(e) {
-    const item = { blob, fullName, shortName, type, resolution };
+    // const item = { blob, fullName, shortName, type, resolution };
     e.preventDefault();
-    uploadFile(item, setStatus, setRandomNum);
+    uploadFile(video, setStatus, setRandomNum);
   }
   const loading = status === "loading";
   let statusIcon;
@@ -35,8 +37,6 @@ const RecordedVideosTableRow = ({
 
   function remove() {
     const index = recordedVideos.findIndex((vid) => vid.blobUrl === blobUrl);
-    const name = recordedVideos[index];
-
     // let recordedVideosClone = JSON.parse(JSON.stringify(recordedVideos));
     let recordedVideosClone = [...recordedVideos];
     recordedVideosClone.splice(index, 1);
@@ -44,12 +44,19 @@ const RecordedVideosTableRow = ({
     setRecordedVideos(recordedVideosClone);
     setTextStatus({ msg: "" });
   }
-
+  function playVideo() {
+    videoEl.src = blobUrl;
+    setIsPlayerActive(true);
+  }
+  // console.log("render");
   return (
     <tr>
       <td>{shortName}</td>
       <td>{mbytes}</td>
       <td>{resolution}</td>
+      <td>
+        <button onClick={playVideo}>Play</button>
+      </td>
       <td>
         <button onClick={remove}>Remove</button>{" "}
       </td>

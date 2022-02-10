@@ -8,6 +8,7 @@ const RecordedVideosTable = ({ rows }) => {
             <th>Name</th>
             <th>Size [MB]</th>
             <th>Resolution</th>
+            <th>Play</th>
             <th>Remove</th>
             <th>Download</th>
             <th>Upload</th>

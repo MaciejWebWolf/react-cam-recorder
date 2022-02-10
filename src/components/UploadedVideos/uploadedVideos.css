@@ -1,0 +1,26 @@
+.player-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  background-color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+  display: none;
+}
+.player-wrapper.active {
+  display: block;
+}
+.player {
+  /* width: calc(100% - 80px); */
+  width: 100%;
+}
+
+.player-close {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}

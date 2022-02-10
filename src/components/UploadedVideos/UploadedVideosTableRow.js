@@ -1,5 +1,6 @@
 import React from "react";
 import { removeDataFromDb } from "../../functions/removeDataFromDb.js";
+import { apiURL } from "../../App.js";
 
 const UploadedVideosTableRow = ({
   row,
@@ -7,6 +8,8 @@ const UploadedVideosTableRow = ({
   setVideosToCombine,
   setStatus,
   setRandomNum,
+  videoEl,
+  setIsPlayerActive,
 }) => {
   const { id, name, type, size, date, resolution } = row;
   const item = { id, name, type };
@@ -37,6 +40,14 @@ const UploadedVideosTableRow = ({
     console.log(videos);
     setVideosToCombine(videos);
   }
+  function playVideo() {
+    const fullName = name + "." + type;
+    const path = apiURL + "api/uploads/" + fullName;
+    videoEl.src = path;
+    setIsPlayerActive(true);
+  }
+  // console.log(" row render");
+
   return (
     <tr>
       <td>{id}</td>
@@ -45,6 +56,10 @@ const UploadedVideosTableRow = ({
       <td>{date}</td>
       <td>{mbytes}</td>
       <td>{resolution}</td>
+      <td>
+        <button onClick={playVideo}>Play</button>
+      </td>
+
       <td>
         <button
           className="remove-button"

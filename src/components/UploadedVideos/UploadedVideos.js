@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { getDataFromDb } from "../../functions/getDataFromDb.js";
 import UploadedVideosTableRow from "./UploadedVideosTableRow.js";
 import UploadedVideosError from "./UploadedVideosError.js";
 import Loader from "../Loader.js";
 import UploadedVideosTable from "./UploadedVideosTable.js";
+import "./uploadedVideos.css";
 
 const UploadedVideos = ({
   randomNum,
   videosToCombine,
   setVideosToCombine,
   setUploadedVideos,
+  videoEl,
+  setIsPlayerActive,
 }) => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -18,12 +21,12 @@ const UploadedVideos = ({
   const [status, setStatus] = useState("");
 
   useEffect(() => {
-    console.log("useeffect getData");
+    // console.log("useeffect getData");
     getDataFromDb(setError, setIsLoaded, setResponse);
   }, [num, randomNum]);
 
   useEffect(() => {
-    console.log("useeffect setVideos");
+    // console.log("useeffect setVideos");
     if (response != null && response.length > 0) {
       const videos = response.map((row) => {
         // console.log(row);
@@ -37,7 +40,7 @@ const UploadedVideos = ({
           resolution,
         };
       });
-      console.log(videos);
+      // console.log(videos);
       setUploadedVideos(response);
       setVideosToCombine(videos);
     }
@@ -56,6 +59,8 @@ const UploadedVideos = ({
             setVideosToCombine={setVideosToCombine}
             setStatus={setStatus}
             setRandomNum={setRandomNum}
+            videoEl={videoEl}
+            setIsPlayerActive={setIsPlayerActive}
           />
         );
       });

@@ -17,11 +17,20 @@ function App() {
 
   const vidRef = useRef(null);
   const videoEl = vidRef.current;
+  const [isPlayerActive, setIsPlayerActive] = useState(false);
 
+  function disablePlayer() {
+    videoEl.src = null;
+    setIsPlayerActive(false);
+  }
   return (
     <div className="container">
       <div className="left">
-        <Recorder setRandomNum={setRandomNum}></Recorder>
+        <Recorder
+          setRandomNum={setRandomNum}
+          videoEl={videoEl}
+          setIsPlayerActive={setIsPlayerActive}
+        ></Recorder>
       </div>
       <div className="right">
         <FileUploader
@@ -35,6 +44,8 @@ function App() {
           videosToCombine={videosToCombine}
           setVideosToCombine={setVideosToCombine}
           setUploadedVideos={setUploadedVideos}
+          videoEl={videoEl}
+          setIsPlayerActive={setIsPlayerActive}
         ></UploadedVideos>
         <FileMerger
           videosToCombine={videosToCombine}
@@ -42,7 +53,22 @@ function App() {
           setRandomNum={setRandomNum}
           videoEl={videoEl}
         />
-        <video ref={vidRef} style={{ display: "none" }}></video>
+        <div
+          className={
+            isPlayerActive ? "player-wrapper active" : "player-wrapper"
+          }
+        >
+          <button className="player-close" onClick={disablePlayer}>
+            X
+          </button>
+          <video
+            ref={vidRef}
+            src=""
+            className="player"
+            controls
+            autoPlay
+          ></video>
+        </div>
       </div>
     </div>
   );

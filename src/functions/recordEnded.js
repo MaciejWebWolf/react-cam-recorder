@@ -1,4 +1,4 @@
-export async function recordEnded(
+export function recordEnded(
   chunks,
   video,
   recordedVideos,
@@ -13,9 +13,10 @@ export async function recordEnded(
   const blobUrl = URL.createObjectURL(blob);
   video.srcObject = null;
   video.src = blobUrl;
+  video.autoplay = false;
   video.muted = false;
   video.addEventListener("loadedmetadata", getDimensions);
-  async function getDimensions() {
+  function getDimensions() {
     const resolution = `${video.videoWidth}x${video.videoHeight}`;
     console.log(resolution);
     video.removeEventListener("loadedmetadata", getDimensions);

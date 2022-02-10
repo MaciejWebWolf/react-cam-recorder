@@ -4,7 +4,7 @@ import SmallCamera from "./SmallCamera.js";
 import RecordedVideos from "./RecordedVideos/RecordedVideos.js";
 import Buttons from "./Buttons.js";
 
-const Recorder = ({ setRandomNum }) => {
+const Recorder = ({ setRandomNum, videoEl, setIsPlayerActive }) => {
   const [stream, setStream] = useState(null);
   const [recordedVideos, setRecordedVideos] = useState([]);
   const [recording, setRecording] = useState({ camera: false, screen: false });
@@ -61,6 +61,8 @@ const Recorder = ({ setRandomNum }) => {
         recordedVideos={recordedVideos}
         setRecordedVideos={setRecordedVideos}
         setRandomNum={setRandomNum}
+        videoEl={videoEl}
+        setIsPlayerActive={setIsPlayerActive}
       />
     </div>
   );
