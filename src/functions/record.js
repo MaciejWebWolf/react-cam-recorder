@@ -47,6 +47,7 @@ export async function record(
   video.src = null;
   video.srcObject = stream;
   video.muted = true;
+  video.autoplay = true;
 
   const recorder = new MediaRecorder(stream);
   let chunks = [];

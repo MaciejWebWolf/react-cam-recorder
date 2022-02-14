@@ -5,7 +5,8 @@ import { insertIntoDb } from "./insertIntoDb";
 export function mergeFiles(
   videos,
   name,
-  // resolution,
+  resolution,
+  fastCombining,
   setStatus,
   setRandomNum,
   videoEl
@@ -42,7 +43,8 @@ export function mergeFiles(
   const json = JSON.stringify(videos);
   fd.append("inputVideos", json);
   fd.append("outputName", name);
-  // fd.append("outputResolution", resolution);
+  fd.append("outputResolution", resolution);
+  fd.append("fastCombining", fastCombining);
   xmlhttp.open("POST", apiURL + "api/php/merge.php");
   xmlhttp.send(fd);
 }

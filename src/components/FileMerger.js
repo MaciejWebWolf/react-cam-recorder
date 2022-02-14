@@ -8,11 +8,13 @@ const FileMerger = ({
   uploadedVideos,
   setRandomNum,
   videoEl,
-  disablePlayer = { disablePlayer },
+  disablePlayer,
+  setMergingInProgress,
 }) => {
   const [name, setName] = useState("");
   const [status, setStatus] = useState("");
-  // const [resolution, setResolution] = useState("640x480");
+  const [resolution, setResolution] = useState("640:480");
+  const [fastCombining, setFastCombining] = useState(false);
 
   function merge(e) {
     e.preventDefault();
@@ -54,28 +56,54 @@ const FileMerger = ({
     videos.sort((a, b) => a.order - b.order);
 
     setStatus("");
-    // mergeFiles(videos, name, resolution, setStatus, setRandomNum, videoEl);
-    mergeFiles(videos, name, setStatus, setRandomNum, videoEl);
+    setMergingInProgress(videos);
+    mergeFiles(
+      videos,
+      name,
+      resolution,
+      fastCombining,
+      setStatus,
+      setRandomNum,
+      videoEl
+    );
+
+    // mergeFiles(videos, name, setStatus, setRandomNum, videoEl);
   }
 
-  // if (uploadedVideos.length > 0) {
-  // }
+  if (status && status.error === false) {
+    setMergingInProgress(false);
+  }
+
+  console.log(fastCombining);
+
   const loading = status === "loading";
 
   return (
     <div className="combine-videos">
       <h3>Combine videos</h3>
       <form method="POST" onSubmit={merge} className="combine-videos__form">
-        {/* <label htmlFor="resolution">Resolution</label>
+        <div>
+          <input
+            type="checkbox"
+            name="fast-combining"
+            onChange={(e) => setFastCombining(e.target.checked)}
+            checked={fastCombining}
+          />
+          <label htmlFor="fast-combining">
+            Fast Combining (same format, same resolution, same codec)
+          </label>
+        </div>
+
+        <label htmlFor="resolution">Resolution</label>
         <select
           name="resolution"
           value={resolution}
           onChange={(e) => setResolution(e.target.value)}
         >
-          <option value="640x480">640x480</option>
-          <option value="1280x720">1280x720</option>
-          <option value="1920x1080">1920x1080</option>
-        </select> */}
+          <option value="640:480">640:480</option>
+          <option value="1280:720">1280:720</option>
+          <option value="1920:1080">1920:1080</option>
+        </select>
         <label htmlFor="name">Output file name:</label>
         <input
           type="text"

@@ -4,7 +4,7 @@ export function insertIntoDb(data, setStatus, setRandomNum) {
   const xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = () => {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-      //   console.log(xmlhttp.responseText);
+      console.log(xmlhttp.responseText);
       const data2 = JSON.parse(xmlhttp.responseText);
       const status = { error: data2.error, msg: data.msg + data2.msg };
       setStatus(status);

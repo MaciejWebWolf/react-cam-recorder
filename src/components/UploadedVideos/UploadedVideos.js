@@ -13,6 +13,7 @@ const UploadedVideos = ({
   setUploadedVideos,
   videoEl,
   setIsPlayerActive,
+  mergingInProgress,
 }) => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -61,6 +62,7 @@ const UploadedVideos = ({
           setRandomNum={setRandomNum}
           videoEl={videoEl}
           setIsPlayerActive={setIsPlayerActive}
+          mergingInProgress={mergingInProgress}
         />
       );
     });

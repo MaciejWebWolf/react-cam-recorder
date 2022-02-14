@@ -15,6 +15,7 @@ function App() {
   const [videosToCombine, setVideosToCombine] = useState([]);
   const [uploadedVideos, setUploadedVideos] = useState([]);
   const [ref, setRef] = useState(null);
+  const [mergingInProgress, setMergingInProgress] = useState(null);
 
   const vidRef = useRef(null);
   const videoEl = vidRef.current;
@@ -51,6 +52,7 @@ function App() {
           setUploadedVideos={setUploadedVideos}
           videoEl={videoEl}
           setIsPlayerActive={setIsPlayerActive}
+          mergingInProgress={mergingInProgress}
         ></UploadedVideos>
         <FileMerger
           videosToCombine={videosToCombine}
@@ -58,6 +60,7 @@ function App() {
           setRandomNum={setRandomNum}
           videoEl={videoEl}
           disablePlayer={disablePlayer}
+          setMergingInProgress={setMergingInProgress}
         />
         <div
           className={

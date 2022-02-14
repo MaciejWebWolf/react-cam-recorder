@@ -10,12 +10,17 @@ const UploadedVideosTableRow = ({
   setRandomNum,
   videoEl,
   setIsPlayerActive,
+  mergingInProgress,
 }) => {
+  console.log(mergingInProgress);
+  console.log(videosToCombine);
+
   const { id, name, type, size, date, resolution } = row;
   const item = { id, name, type };
 
   const mbytes = (size / 1024 / 1024).toFixed(2);
 
+  //VIDEO IS SELECTED TO COMBINE
   let isEnabled;
   let index;
   if (videosToCombine.length > 0) {
@@ -23,6 +28,13 @@ const UploadedVideosTableRow = ({
       if (vid.id == id) return vid;
     });
     if (index != -1) isEnabled = videosToCombine[index].combineStatus;
+  }
+  // VIDEO IS CURRENTLY MERGING
+  let isMerging;
+  if (mergingInProgress && mergingInProgress.length > 0) {
+    isMerging = mergingInProgress.find((vid) => {
+      if (vid.id == id) return vid;
+    });
   }
 
   function handleInputChange(e) {
@@ -66,6 +78,7 @@ const UploadedVideosTableRow = ({
           <button
             className="remove-button"
             onClick={() => removeDataFromDb(item, setStatus, setRandomNum)}
+            disabled={isMerging}
           >
             Remove
           </button>

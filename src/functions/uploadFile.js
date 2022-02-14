@@ -11,9 +11,11 @@ export function uploadFile(item, setStatus, setRandomNum, videoEl) {
 
       //IF VIDEO IS UPLOADED AND RESOLUTION IS CHECKED - INSERT INTO DB
       if (data.video && item.resolution) {
+        console.log("1");
         data.video.resolution = item.resolution;
         insertIntoDb(data, setStatus, setRandomNum);
       } else if (data.video) {
+        console.log("2");
         function getVideoResolution(resolution) {
           data.video.resolution = resolution;
           insertIntoDb(data, setStatus, setRandomNum);
