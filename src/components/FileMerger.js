@@ -1,6 +1,6 @@
-import { apiURL } from "../App.js";
 import { mergeFiles } from "../functions/mergeFiles.js";
 import Loader from "./Loader.js";
+import "./FileMerger.css";
 
 import React, { useState } from "react";
 const FileMerger = ({
@@ -14,7 +14,7 @@ const FileMerger = ({
   const [name, setName] = useState("");
   const [status, setStatus] = useState("");
   const [resolution, setResolution] = useState("640:480");
-  const [fastCombining, setFastCombining] = useState(false);
+  const [radioChoice, setRadioChoice] = useState("fast");
 
   function merge(e) {
     e.preventDefault();
@@ -61,7 +61,7 @@ const FileMerger = ({
       videos,
       name,
       resolution,
-      fastCombining,
+      radioChoice,
       setStatus,
       setRandomNum,
       videoEl
@@ -74,24 +74,45 @@ const FileMerger = ({
     setMergingInProgress(false);
   }
 
-  console.log(fastCombining);
-
   const loading = status === "loading";
 
   return (
     <div className="combine-videos">
       <h3>Combine videos</h3>
       <form method="POST" onSubmit={merge} className="combine-videos__form">
-        <div>
-          <input
-            type="checkbox"
-            name="fast-combining"
-            onChange={(e) => setFastCombining(e.target.checked)}
-            checked={fastCombining}
-          />
-          <label htmlFor="fast-combining">
-            Fast Combining (same format, same resolution, same codec)
-          </label>
+        <div className="combine-videos__radios">
+          <div>
+            <input
+              type="radio"
+              name="combining"
+              onChange={(e) => setRadioChoice("very-fast")}
+              value="very-fast"
+              checked={radioChoice === "very-fast"}
+            />
+            <label htmlFor="">
+              Very Fast Combining (same format, same resolution, same codec)
+            </label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              name="combining"
+              onChange={(e) => setRadioChoice("fast")}
+              value="fast"
+              checked={radioChoice === "fast"}
+            />
+            <label htmlFor="">Fast Combining (same format)</label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              name="combining"
+              onChange={(e) => setRadioChoice("slow")}
+              value="slow"
+              checked={radioChoice === "slow"}
+            />
+            <label htmlFor="">Slow Combining (different files)</label>
+          </div>
         </div>
 
         <label htmlFor="resolution">Resolution</label>

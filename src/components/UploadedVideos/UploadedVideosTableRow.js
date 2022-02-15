@@ -12,8 +12,8 @@ const UploadedVideosTableRow = ({
   setIsPlayerActive,
   mergingInProgress,
 }) => {
-  console.log(mergingInProgress);
-  console.log(videosToCombine);
+  // console.log(mergingInProgress);
+  // console.log(videosToCombine);
 
   const { id, name, type, size, date, resolution } = row;
   const item = { id, name, type };

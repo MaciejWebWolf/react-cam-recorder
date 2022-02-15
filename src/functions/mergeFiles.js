@@ -6,7 +6,7 @@ export function mergeFiles(
   videos,
   name,
   resolution,
-  fastCombining,
+  radioChoice,
   setStatus,
   setRandomNum,
   videoEl
@@ -44,7 +44,7 @@ export function mergeFiles(
   fd.append("inputVideos", json);
   fd.append("outputName", name);
   fd.append("outputResolution", resolution);
-  fd.append("fastCombining", fastCombining);
+  fd.append("radioChoice", radioChoice);
   xmlhttp.open("POST", apiURL + "api/php/merge.php");
   xmlhttp.send(fd);
 }

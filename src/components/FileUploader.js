@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { uploadFile } from "../functions/uploadFile.js";
 import Loader from "./Loader.js";
 import { serverMaxSizeBytes } from "../App.js";
+import "./FileUploader.css";
 
 const FileUploader = ({ setRandomNum, videoEl, disablePlayer }) => {
   const [status, setStatus] = useState("");

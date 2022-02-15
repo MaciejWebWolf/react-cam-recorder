@@ -76,16 +76,6 @@ button {
   margin: 10px;
 }
 
-.combine-videos__form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.file-uploader__form {
-  /* display: flex; */
-  /* justify-content: space-between; */
-}
-
 .customers td,
 .customers th {
   border: 1px solid #ddd;
