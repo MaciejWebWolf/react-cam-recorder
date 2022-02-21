@@ -1,8 +1,8 @@
+import React, { useEffect, useState } from "react";
 import { mergeFiles } from "../functions/mergeFiles.js";
 import Loader from "./Loader.js";
 import "./FileMerger.css";
 
-import React, { useState } from "react";
 const FileMerger = ({
   videosToCombine,
   uploadedVideos,
@@ -69,12 +69,11 @@ const FileMerger = ({
 
     // mergeFiles(videos, name, setStatus, setRandomNum, videoEl);
   }
-
-  if (status && status.error === false) {
-    setMergingInProgress(false);
-  }
-
   const loading = status === "loading";
+
+  useEffect(() => {
+    if (!loading) setMergingInProgress(false);
+  }, [status]);
 
   return (
     <div className="combine-videos">

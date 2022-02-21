@@ -14,6 +14,6 @@ export function getDataFromDb(setError, setIsLoaded, setResponse) {
     setIsLoaded(true);
   };
 
-  xmlhttp.open("POST", apiURL + "api/php/getDataFromDb.php");
+  xmlhttp.open("GET", apiURL + "api/videos");
   xmlhttp.send();
 }

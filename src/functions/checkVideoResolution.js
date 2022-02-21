@@ -1,4 +1,5 @@
 export async function checkVideoResolution(file, video, callback) {
+  console.log(file);
   let url;
   if (typeof file == "object") url = URL.createObjectURL(file);
   else url = file;
@@ -13,5 +14,6 @@ export async function checkVideoResolution(file, video, callback) {
     // console.log(resolution);
     video.removeEventListener("loadedmetadata", getDimensions);
     callback(resolution);
+    console.log(resolution);
   }
 }

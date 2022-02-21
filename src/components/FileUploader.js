@@ -31,7 +31,7 @@ const FileUploader = ({ setRandomNum, videoEl, disablePlayer }) => {
     const type = file.name.substring(index + 1);
     const fullName = shortName + "." + type;
     const blob = file;
-    const item = { blob, fullName, shortName, type };
+    const item = { blob, fullName, shortName, type, size: file.size };
     uploadFile(item, setStatus, setRandomNum, videoEl);
   }
 

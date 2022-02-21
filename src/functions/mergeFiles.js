@@ -30,9 +30,9 @@ export function mergeFiles(
       }
       //END OF INSERT INTO DB
 
-      if (!data.error) {
-        setRandomNum(Math.random());
-      }
+      // if (!data.error) {
+      //   setRandomNum(Math.random());
+      // }
     }
   };
   xmlhttp.onerror = (error) => {

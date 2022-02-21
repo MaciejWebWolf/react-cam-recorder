@@ -1,5 +1,5 @@
 import React from "react";
-import { removeDataFromDb } from "../../functions/removeDataFromDb.js";
+import { removeFile } from "../../functions/removeFile.js";
 import { apiURL } from "../../App.js";
 
 const UploadedVideosTableRow = ({
@@ -14,9 +14,8 @@ const UploadedVideosTableRow = ({
 }) => {
   // console.log(mergingInProgress);
   // console.log(videosToCombine);
-
-  const { id, name, type, size, date, resolution } = row;
-  const item = { id, name, type };
+  const { id, name, type, size, resolution, url, userId } = row;
+  const date = row.created_at.slice(0, 10);
 
   const mbytes = (size / 1024 / 1024).toFixed(2);
 
@@ -54,7 +53,10 @@ const UploadedVideosTableRow = ({
   }
   function playVideo() {
     const fullName = name + "." + type;
-    const path = apiURL + "api/uploads/" + fullName;
+    const path =
+      "http://localhost/api/storage/app/videos-user-" + userId + "/" + fullName;
+    // const path = url;
+    console.log(url);
     videoEl.src = path;
     videoEl.autoplay = true;
     videoEl.muted = false;
@@ -77,7 +79,7 @@ const UploadedVideosTableRow = ({
         <td>
           <button
             className="remove-button"
-            onClick={() => removeDataFromDb(item, setStatus, setRandomNum)}
+            onClick={() => removeFile(row, setStatus, setRandomNum)}
             disabled={isMerging}
           >
             Remove

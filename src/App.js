@@ -5,10 +5,13 @@ import FileUploader from "./components/FileUploader.js";
 import FileMerger from "./components/FileMerger.js";
 import Recorder from "./components/Recorder";
 import UploadedVideos from "./components/UploadedVideos/UploadedVideos";
+import LoginForm from "./components/LoginForm";
+import RegisterForm from "./components/RegisterForm";
 
 export const serverMaxSizeBytes = 600000000;
 // export const apiURL = "https://pravna.git-webwolf.pl/";
-export const apiURL = "http://localhost/";
+// export const apiURL = "http://localhost/";
+export const apiURL = "http://127.0.0.1:8000/";
 
 function App() {
   const [randomNum, setRandomNum] = useState(0);
@@ -28,8 +31,13 @@ function App() {
     videoEl.src = null;
     setIsPlayerActive(false);
   }
+
   return (
     <div className="container">
+      <div className="top">
+        <LoginForm />
+        <RegisterForm />
+      </div>
       <div className="left">
         <Recorder
           setRandomNum={setRandomNum}
